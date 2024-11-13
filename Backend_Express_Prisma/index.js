@@ -2,6 +2,7 @@ const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
 const CORS = require('cors')
+const serverless = require('serverless-http')
 
 const prisma = new PrismaClient();
 const app = express();
@@ -195,6 +196,8 @@ app.delete('/subtodos/:id', async (req, res) => {
 
 // Start the Express server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
+module.exports.handler = serverless(app)
