@@ -6,7 +6,7 @@ const CORS = require('cors')
 const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
-app.use(CORS({origin:'http://localhost:5173'}))
+app.use(CORS({origin:'*'}))
 
 // Create a user
 app.post('/users', async (req, res) => {
