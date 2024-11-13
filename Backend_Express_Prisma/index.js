@@ -1,57 +1,3 @@
-// const express = require('express')
-// const {PrismaClient}  = require('@prisma/client')
-// require('dotenv').config()
-
-// const prisma = new PrismaClient()
-// const app = express()
-
-// app.use(express.json())
-
-// const port = process.env.PORT || 3000
-
-// app.post('/add-user',async (req,res)=>{
-//     const {name,email} = req.body
-//     console.log(req.body)
-
-//     try {
-//         const createdUser = await prisma.user.create({
-//             data:{name,email}
-//         })
-//         res.status(201).json(createdUser)
-//     } catch (error) {
-//         res.status(500).json({error:error})
-//     }
-// })
-
-// app.get('/get-users', async (req, res)=>{
-//     try {
-//         const users = await prisma.user.findMany()
-//         res.status(200).json(users)
-//     } catch (error) {
-//         res.status(500).json({error:error})
-//     }
-// })
-
-
- 
-// app.listen(port,()=>{
-//     console.log(`server is running on port ${port}`)
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
@@ -76,13 +22,26 @@ app.post('/users', async (req, res) => {
   }
 });
 
+
+// Create many user
+app.post('/addmany-users', async (req, res) => {
+  const reqData = req.body;
+
+  try {
+    const newUser = await prisma.user.createMany({
+      data:reqData
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Get all users
 app.get('/users', async (req, res) => {
   
   try {
-    const users = await prisma.user.findMany({
-      include: { todos: true },  // Include related todos
-    });
+    const users = await prisma.user.findMany();
     res.status(200).json(users);
     
   } catch (error) {

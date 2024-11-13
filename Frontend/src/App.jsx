@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react';
-import axios from 'axios'
+import React from 'react'
+import ViewUsers from './components/users/ViewUsers'
 
 const App = () => {
-  useEffect(()=>{
-   function fetchData(){
-    axios.get('http://localhost:4000/users')
-      .then((res)=>{
-        console.log('response from user',res.data)
-      })
-      .catch((err)=>{
-        console.log('error from getting user',err)
-      })
-   }
-   fetchData()
-  },[])
-  
-  return(<>
-  </>)
+  return (
+    <div>
+      <ViewUsers />
+    </div>
+  )
 }
 
-export default App;
+export default App
